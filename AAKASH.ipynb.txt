@@ -1,0 +1,74 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "AAKASH.ipynb",
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "wrFTMRKjODcX",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "8e0d0dda-12f1-4b7a-80d0-a3190757f6fb"
+      },
+      "source": [
+        "import requests, json\n",
+        "from datetime import datetime\n",
+        "api_key = \"a05110a7f3b1e24fae77caec583969bd\"\n",
+        "base_url = \"http://api.openweathermap.org/data/2.5/weather?\"\n",
+        "city_name = input(\"Enter city name : \")\n",
+        "complete_url = base_url + \"appid=\" + api_key + \"&q=\" + city_name\n",
+        "response = requests.get(complete_url)\n",
+        "x = response.json()\n",
+        "now = datetime.now()\n",
+        "dt_string = now.strftime(\"%d/%m/%Y %H:%M:%S\")\n",
+        "if x[\"cod\"] != \"404\":\n",
+        "    y = x[\"main\"]\n",
+        "    current_temperature = y[\"temp\"]\n",
+        "    current_pressure = y[\"pressure\"]\n",
+        "    current_humidity = y[\"humidity\"]\n",
+        "    z = x[\"weather\"]\n",
+        "    weather_description = z[0][\"description\"]\n",
+        "    print(' Date & Time:',dt_string)\n",
+        "    print(\" Temperature (in kelvin unit) = \" +\n",
+        "                                                    str(current_temperature) +\n",
+        "                                                              \"\\n atmospheric pressure (in hPa unit) = \" +\n",
+        "                                                                                  str(current_pressure) +\n",
+        "                                                                                            \"\\n humidity (in percentage) = \" +\n",
+        "                                                                                                                str(current_humidity) +\n",
+        "                                                                                                                          \"\\n description = \" +\n",
+        "                                                                                                                                              str(weather_description))\n",
+        "else:\n",
+        "    print(\" City Not Found \")"
+      ],
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Enter city name : Chennai\n",
+            " Date & Time: 28/07/2021 17:51:07\n",
+            " Temperature (in kelvin unit) = 304.14\n",
+            " atmospheric pressure (in hPa unit) = 1006\n",
+            " humidity (in percentage) = 74\n",
+            " description = mist\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    }
+  ]
+}
